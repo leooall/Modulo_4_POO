@@ -1,0 +1,61 @@
+#la idea de la herencia es reutilizar los metodos y atributos en las herencias hijas
+#la herencia es unidireccional y un subclass no puede añadirle metodos ni atributos al Padre
+class Padre():
+    #atributo de clase
+    color = "verde"
+    #constructor
+    def __init__(self, tamanio: int):
+        #atributos de instancia
+        self.__tamanio = tamanio #atributo oculto/privado
+
+    #metodos estaticos
+
+    #metodos de instancia
+    def cambia_color(self, color: str):
+        if color != "":
+            self.color = color    
+    
+    #sobrecarga
+    def __str__(self):
+        return f"El color es {self.color}, y de tamanio {self.__tamanio}"
+
+    #getter 
+    @property
+    def tamanio(self):
+        return self.__tamanio
+    
+    # setters
+    @tamanio.setter
+    def tamanio(self, tamanio: int):
+        if tamanio > 0:
+            self.__tamanio = tamanio
+        else:
+            self.__tamanio = 0
+        
+#HERENCIA --> hereda todoooo      y cada uno de los hijos puede tener sus propios metodos y atributos  
+class Hija(Padre):
+    peso = 100
+
+class Hijo(Padre):
+    deuda = 120
+    
+class Nieto(Hija): #hereda de la mamá el peso, y del abuelo el color y tamanio
+    pañal = "xl"
+
+
+#instancia de la clase hija (creando un objeto)
+hijita = Hija(100)
+print(f"el color de la class hija es {hijita.color}")#el color de la class hija es verde
+print(f"el tamanio de la class hija es {hijita.tamanio}")#el tamanio de la class hija es 100
+
+regalon = Nieto(50)
+regalon.cambia_color("azul")
+
+print(f"el color de la class nieto es {regalon.color}")#el color de la class nieto es azul
+print(f"el tamanio de la class nieto es {regalon.tamanio}")#el tamanio de la class nieto es 50
+
+
+
+
+
+
