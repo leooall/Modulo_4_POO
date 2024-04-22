@@ -1,11 +1,10 @@
 from foto import Foto
 from error import DimensionError
 
+#creacion de un objeto de la clase Foto con argumentos
+foto = Foto(2000, 2000, "rutafoto.jpg")
 
-    
-foto = Foto(4000, 2000, "rutafoto.jpg")
-
-#Intento Foto con un ancho demasiado grande
+#Intento Foto con un ancho y alto demasiado grande
 try:
     foto.ancho = 3500  
 except DimensionError as e:
@@ -16,13 +15,3 @@ try:
 except DimensionError as e:
     print("Error de dimension", e)
 
-
-"""
-try:
-    ancho = int(input("Ingrese Ancho: "))
-    alto = int(input("Ingrese Alto: "))
-    
-    foto1 = Foto(ancho, alto, "ruta.url")
-except DimensionError as e:
-    print("Error de dimension", e)
-"""    

@@ -19,8 +19,7 @@ class Foto():
                 raise DimensionError("El valor del ancho no es válido", dimension=ancho, maximo=Foto.MAX)
         except DimensionError as e:
             print("Error de dimension", e)
-        
-        
+
     @property
     def alto(self) -> int:
         return self.__alto
