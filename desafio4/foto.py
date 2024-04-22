@@ -13,13 +13,13 @@ class Foto():
 
     @ancho.setter
     def ancho(self, ancho) -> None:
-        self.__ancho = ancho
         try:
             if ancho < 1 or ancho > Foto.MAX:
                 raise DimensionError("El valor del ancho no es válido", dimension=ancho, maximo=Foto.MAX)
         except DimensionError as e:
-            print("Error de dimension", e)
-
+            print("Error:: Ancho no permitido", e)
+        self.__ancho = ancho
+        
     @property
     def alto(self) -> int:
         return self.__alto
@@ -31,7 +31,12 @@ class Foto():
             if alto < 1 or alto > Foto.MAX:
                 raise DimensionError("El valor del alto no es válido", dimension=alto, maximo=Foto.MAX)
         except DimensionError as e:
-            print("Error de dimension", e)
+            print("Error:: Alto no permitido", e)
         
 
 
+if __name__ == "__main__":
+    foto = Foto(2500, 2500, "ruta")
+    
+    #intento de modificacion fuera de parametros permitidos
+    foto.ancho = 3000
