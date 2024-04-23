@@ -1,0 +1,2 @@
+{"nombre" : "papas", "precio" : 1000}
+{"nombre" : "zanahorias", "precio" : 2000}

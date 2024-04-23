@@ -50,6 +50,7 @@ try:
 except Exception as e:
     with open(f"dia11/logs/{round(time.time())}.log", "w") as log:
         log.write(f"ERROR: {e}")
+        
 #para hacer uso de r+ siempre debe existir el archivo
 #with open(f"dia11/logs/{round(time.time())}.log", "r+") as log:
 
