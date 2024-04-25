@@ -8,8 +8,8 @@ class Anuncio(ABC):
     SUB_TIPOS = ()# tupla
     #atributos de instancia de clase
     def __init__(self, ancho: int, alto: int, url_archivo: str, url_clic: str, sub_tipo: str):
-        self.__alto = alto
-        self.__ancho = ancho
+        self.__ancho = ancho if ancho > 0 else 1
+        self.__alto = alto if alto > 0 else 1
         self.__url_archivo = url_archivo
         self.__url_clic = url_clic
         self.__sub_tipo = sub_tipo
@@ -21,12 +21,8 @@ class Anuncio(ABC):
     
     #setter ancho
     @ancho.setter #validacion bajo una condicional 
-    def ancho(self, ancho: int):
-        if ancho <= 0:
-            self.__ancho = 1
-        else:
-            return self.__ancho
-        
+    def ancho(self, ancho):
+        self.__ancho = ancho if ancho > 0 else 1
     #getter alto
     @property
     def alto(self):
@@ -35,10 +31,7 @@ class Anuncio(ABC):
     #setter alto
     @alto.setter #validacion bajo una condicional 
     def alto(self, alto: int):
-        if alto <= 0:
-            self.__alto = 1
-        else:
-            return self.__alto
+        self.__alto = alto if alto > 0 else 1
     
     #getter url_archivo
     @property
@@ -95,12 +88,12 @@ class Video(Anuncio):
     #atributos de clase
     FORMATO = "Video"
     SUB_TIPOS = ("instream", "outstream")
+    def __init__(self, url_archivo: str, url_clic: str, subtipo: str, duracion:int):
+        super().__init__(1, 1, url_archivo, url_clic, subtipo)#valor 1 predeterminado para ancho-alto
+        self.__alto = 1
+        self.__ancho = 1
+        self.__duracion = duracion if duracion > 0 else 5
     
-    #valor 1 predeterminado para ancho-alto
-    def __init__(self, ancho:1, alto:1, duracion:int):
-        self.__ancho = ancho
-        self.__alto = alto
-        self.__duracion = duracion
     #getter    
     @property
     def duracion(self):
@@ -109,10 +102,27 @@ class Video(Anuncio):
     @duracion.setter
     #validacion bajo una condicional 
     def duracion(self, duracion: int): 
-        if duracion <= 0:
-            self.__duracion = 5
-        else:
-            return self.__duracion
+        self.__duracion = duracion if duracion > 0 else 5
+        
+    #getter ancho
+    @property
+    def ancho(self):
+        return self.__ancho
+    
+    #sobrescritura setter ancho
+    @ancho.setter #validacion bajo una condicional 
+    def ancho(self, ancho):
+        pass
+    #getter alto
+    @property
+    def alto(self):
+        return self.__alto
+    
+    #sobrescritura setter alto
+    @alto.setter #validacion bajo una condicional 
+    def alto(self, alto: int):
+        pass
+        
         
     #sobreescritura de metodos abstractos
     def comprimir_anuncio(self):
