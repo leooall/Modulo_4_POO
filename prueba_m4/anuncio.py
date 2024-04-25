@@ -3,9 +3,6 @@ from error import SubTipoInvalidoError
 
 #definicion clase abstracta Anuncio
 class Anuncio(ABC):
-    #atributos de clase
-    FORMATO = ""
-    SUB_TIPOS = ()# tupla
     #atributos de instancia de clase
     def __init__(self, ancho: int, alto: int, url_archivo: str, url_clic: str, sub_tipo: str):
         self.__alto = alto
@@ -65,21 +62,33 @@ class Anuncio(ABC):
     def sub_tipo(self):
         return self.__sub_tipo
     
-    #setter sub_tipo
+    #setter sub_tipo*
     @sub_tipo.setter
     def sub_tipo(self, sub_tipo: str):
-        if sub_tipo in self.SUB_TIPOS:
-            self.__sub_tipo = sub_tipo
+        if (isinstance(self, Video) and sub_tipo not in Video.SUB_TIPOS or 
+            isinstance(self, Display) and sub_tipo not in Display.SUB_TIPOS or 
+            isinstance(self, Social) and sub_tipo not in Social.SUB_TIPOS):
+            raise SubTipoInvalidoError(f"El subtipo '{sub_tipo}' no es válido.")
         else:
-            raise SubTipoInvalidoError(f"El subtipo '{sub_tipo}' no es válido para este anuncio.")
+            self.__sub_tipo = sub_tipo
     
-    #metodo estatico Mostrar formato***********
+    #metodo estatico Mostrar formatos
     @staticmethod
     def mostrar_formatos():  
         print(f"FORMATO VIDEO:")
         print("========")
         for sub_tipo in Video.SUB_TIPOS:
             print(f"- {sub_tipo}")#imprime subtipos disponibles
+        print("****************")    
+        print(f"FORMATO DISPLAY:")
+        print("========")
+        for sub_tipo in Display.SUB_TIPOS:
+            print(f"- {sub_tipo}")#imprime subtipos disponibles    
+        print("****************")       
+        print(f"FORMATO SOCIAL:")
+        print("========")
+        for sub_tipo in Social.SUB_TIPOS:
+            print(f"- {sub_tipo}")#imprime subtipos disponibles 
             
     #definicion de metodos abstractos
     @abstractmethod
@@ -95,12 +104,12 @@ class Video(Anuncio):
     #atributos de clase
     FORMATO = "Video"
     SUB_TIPOS = ("instream", "outstream")
-    
-    #valor 1 predeterminado para ancho-alto
-    def __init__(self, ancho:1, alto:1, duracion:int):
-        self.__ancho = ancho
-        self.__alto = alto
-        self.__duracion = duracion
+    def __init__(self, url_archivo: str, url_clic: str, subtipo: str, duracion:int):
+        super().__init__(1, 1, url_archivo, url_clic, subtipo)#valor 1 predeterminado para ancho-alto
+        self.__alto = 1
+        self.__ancho = 1
+        self.__duracion = duracion if duracion > 0 else 5
+        
     #getter    
     @property
     def duracion(self):
@@ -109,10 +118,7 @@ class Video(Anuncio):
     @duracion.setter
     #validacion bajo una condicional 
     def duracion(self, duracion: int): 
-        if duracion <= 0:
-            self.__duracion = 5
-        else:
-            return self.__duracion
+        self.__duracion = duracion if duracion > 0 else 5
         
     #sobreescritura de metodos abstractos
     def comprimir_anuncio(self):
