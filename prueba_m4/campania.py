@@ -5,7 +5,7 @@ from anuncio import Anuncio, Video, Display, Social
 
 #definicion de la class Campania, con parámetros str, de tipo date y una lista
 class Campania():
-    def __init__(self, nombre: str, fecha_inicio: date, fecha_termino: date, info_anuncios: list) -> None:
+    def __init__(self, nombre: str, fecha_inicio: date, fecha_termino: date, anuncios: list) -> None:
         #verificación longitud del nombre de la campaña
         if len(nombre) > 250:
             #si la longitud del nombre es mayor que 250 caracteres, se lanza una excepción
@@ -14,18 +14,15 @@ class Campania():
         self.__nombre = nombre
         self.__fecha_inicio = fecha_inicio
         self.__fecha_termino = fecha_termino
-        self.__anuncios = []
+        self.__anuncios = [self.instancias_de_anuncios() for dicc in anuncios]
         
-        #llamada al metodo privado __crear_anuncios, pasando como argumento el atributo de instancia "info_anuncios""
-        self.__crear_anuncios(info_anuncios)
-        
-    #método privado que crea instancias de la clase Anuncio a partir de la lista info_anuncios y agrega a la lista de anuncios de la campaña (self.__anuncios).
-    def __crear_anuncios(self, info_anuncios: list):
-        for info_anuncio in info_anuncios:
-            anuncio = Anuncio(**info_anuncio)  # Utilizamos el operador ** para pasar los diccionarios como argumentos
-            self.__anuncios.append(anuncio)
+    
+    #metodo para crear instancias de anuncios
+    def instancias_de_anuncios(self, anuncios: dict):
+        return Video()
+        return Display()
+        return Social()
             
-
     #metodo sobrecargado
     def __str__(self): #verifica el valor del atributo FORMATO de cada instancia de Anuncio y suma las instancias que coinciden con cada tipo
         cantidad_video = sum(1 for anuncio in self.__anuncios if anuncio.FORMATO == "Video")
@@ -55,3 +52,6 @@ class Campania():
     @property
     def anuncios(self):
         return self.__anuncios    
+    
+    
+    #reliza un recorrido de la lista de anuncios con el metodo instancias_de_anuncios y crea instancias de cada tipo de anuncio Video, Display, Social

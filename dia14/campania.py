@@ -18,16 +18,6 @@ class Campania():
         return Display()
         return Social()
 
-                
-        #llamada al metodo privado __crear_anuncios, pasando como argumento el atributo de instancia "info_anuncios""
-        self.__crear_anuncios(info_anuncios)
-        
-    #método privado que crea instancias de la clase Anuncio a partir de la lista info_anuncios y agrega a la lista de anuncios de la campaña (self.__anuncios).
-    def __crear_anuncios(self, info_anuncios: list):
-        for info_anuncio in info_anuncios:
-            anuncio = Anuncio(**info_anuncio)  # Utilizamos el operador ** para pasar los diccionarios como argumentos
-            self.__anuncios.append(anuncio)
-            
 
     #metodo sobrecargado
     def __str__(self): #verifica el valor del atributo FORMATO de cada instancia de Anuncio y suma las instancias que coinciden con cada tipo
