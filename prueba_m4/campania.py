@@ -16,7 +16,7 @@ class Campania():
         self.__fecha_termino = fecha_termino
         self.__anuncios = [self.instancias_de_anuncios() for dicc in anuncios]
         
-    
+    #como hacer que el metodo instancias_de_anuncios recorra la lista anuncios y genere instancias de cada tipo de anuncio Video, Display, Social
     #metodo para crear instancias de anuncios
     def instancias_de_anuncios(self, anuncios: dict):
         return Video()
@@ -54,4 +54,4 @@ class Campania():
         return self.__anuncios    
     
     
-    #reliza un recorrido de la lista de anuncios con el metodo instancias_de_anuncios y crea instancias de cada tipo de anuncio Video, Display, Social
+    #
